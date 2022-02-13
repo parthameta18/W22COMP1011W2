@@ -82,6 +82,6 @@ public class Camera {
         if (price >= 10 && price <= 5000)
             this.price = price;
         else
-            throw new IllegalArgumentException("price must be in the range 10-5000");
+            throw new IllegalArgumentException("Price must be in the range 10-5000");
     }
 }
