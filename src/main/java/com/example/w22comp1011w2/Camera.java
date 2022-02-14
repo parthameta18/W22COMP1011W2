@@ -1,6 +1,7 @@
 package com.example.w22comp1011w2;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -8,6 +9,7 @@ import java.util.List;
  */
 
 public class Camera {
+    private int cameraID;
     private int resolution;
     private String make, model;
     private boolean slr;
@@ -21,7 +23,30 @@ public class Camera {
         setPrice(price);
     }
 
+    /**
+     * This is an overloaded constructor
+     */
+
+    public Camera(int cameraID, String make, String model,int resolution, boolean slr, double price) {
+        this (make, model,resolution, slr, price);
+        setCameraID(cameraID);
+
+    }
+
+    public int getCameraID() {
+        return cameraID;
+    }
+
+    public void setCameraID(int cameraID) {
+        this.cameraID = cameraID;
+    }
+
     public int getResolution() {
+        if(cameraID<0)
+            throw new IllegalArgumentException("CameraID must be greater than 0");
+        else
+            this.cameraID = cameraID;
+
         return resolution;
     }
 
@@ -48,6 +73,18 @@ public class Camera {
             this.make = make;
         else
             throw new IllegalArgumentException("Make must be in the list of: " + validMakes);
+    }
+
+    /**
+     * This ethod returns a list of all the valid camera manufacturer
+     * @return
+     */
+
+    public static List<String> getManufacturers()
+    {
+        List<String> brands = Arrays.asList("Canon", "Nikon", "Sony", "Fujifilm","Kodak");
+        Collections.sort(brands);
+        return brands;
     }
 
     public String getModel() {
@@ -82,6 +119,11 @@ public class Camera {
         if (price >= 10 && price <= 5000)
             this.price = price;
         else
-            throw new IllegalArgumentException("Price must be in the range 10-5000");
+            throw new IllegalArgumentException("price must be in the range 10-5000");
+    }
+
+    public String toString()
+    {
+        return String.format("%s-%s, %dMp, $%.2f",make,model,resolution,price);
     }
 }
